@@ -25,7 +25,7 @@ public class SMSUtils {
      * @param param 参数
      */
     public static void sendMessage(String signName, String templateCode,String phoneNumbers,String param){
-        DefaultProfile profile = DefaultProfile.getProfile("lhp", " LTAI5tQabB7PyhtBdVm3vTaf", "vbYjRCRN7epA25lSlp3P4VFwHmxt3Z");
+        DefaultProfile profile = DefaultProfile.getProfile("lhp", " LTAI5tQabB7PyhtBdVm3vTaf", "vbYjRCRN7epA25lSlp3P4VFwHmx");
 
         IAcsClient client = new DefaultAcsClient(profile);
 
