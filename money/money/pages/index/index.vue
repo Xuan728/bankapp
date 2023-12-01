@@ -3,23 +3,47 @@
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
+			<view v-on:click="getUser">{{users}}</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import axios from '../../node_modules/axios'
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				users: '',
+				username: 'dy123456',
+				password: '123456'
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+		 getUsers() {
+			  uni.request({
+				url: '/user/login',
+				method: 'POST',
+				data: {
+				          username: this.username,
+				          password: this.password
+				},
+				header: {
+				          'content-type': 'application/json' // 设置请求头为JSON格式
+				},
+				success: (res) => {
+				  // 请求成功，处理返回的数据
+				  this.users = res.data;
+				  console.log(res.data);
+				},
+				fail: (err) => {
+				  // 请求失败，处理错误信息
+				  console.error(err);
+				}
+			  });
+			}
 		}
 	}
 </script>
