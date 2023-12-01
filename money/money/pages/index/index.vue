@@ -3,8 +3,12 @@
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
-			<view v-on:click="getUser">{{users}}</view>
 		</view>
+		<view>
+		    <input type="text" v-model="username" placeholder="请输入用户名" />
+		    <input type="password" v-model="password" placeholder="请输入密码" />
+		    <button @click="login">登录</button>
+		  </view>
 	</view>
 </template>
 
@@ -14,8 +18,8 @@
 			return {
 				title: 'Hello',
 				users: '',
-				username: 'dy123456',
-				password: '123456'
+				username: '',
+				password: ''
 			}
 		},
 		onLoad() {
