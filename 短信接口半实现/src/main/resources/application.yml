@@ -4,3 +4,6 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/big_event?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: "030606"
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

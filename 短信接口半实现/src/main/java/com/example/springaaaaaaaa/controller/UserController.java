@@ -8,14 +8,13 @@ import com.example.springaaaaaaaa.pojo.ValidateCodeUtils;
 import com.example.springaaaaaaaa.service.UserService;
 import com.example.springaaaaaaaa.utils.JwtUtil;
 import com.example.springaaaaaaaa.utils.Md5Util;
+import com.example.springaaaaaaaa.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,4 +80,51 @@ public class UserController {
 
         return  Result.success("验证码短信发送成功");
     }
+
+    @GetMapping("/userInfo")
+    public Result<User> userInfo(/*@RequestHeader(name = "Authorization") String token*/){
+        /*Map<String,Object> map = JwtUtil.parseToken(token);
+        String username= (String) map.get("username");*/
+        Map<String,Object> map = ThreadLocalUtil.get();
+        String username= (String) map.get("username");
+        User user= userService.findByUserName(username);
+        return Result.success(user);
+    }
+    @PutMapping("/update")
+    public  Result updata(@RequestBody @Validated User user){
+        userService.update(user);
+        return Result.success();
+    }
+
+    @PatchMapping("updateAvatar")
+    public Result updateAvatar(@RequestParam @URL String avatarUrl){
+        userService.updateAvatar(avatarUrl);
+        return Result.success();
+
+    }
+
+    @PatchMapping("/updatePwd")
+    public Result updatePwd(@RequestBody Map<String,String> params)
+    {
+        String oldPwd= params.get("old_pwd");
+        String newPwd=params.get("new_pwd");
+        String rePwd=params.get("re_pwd");
+        if(StringUtils.isEmpty(oldPwd) || StringUtils.isEmpty(newPwd) || StringUtils.isEmpty(rePwd))
+        {
+            return Result.error("缺少必要的参数");
+        }
+        Map<String,Object> map= ThreadLocalUtil.get();
+        String username=(String) map.get("username");
+        User loginUser= userService.findByUserName(username);
+        if(!loginUser.getPassword().equals(Md5Util.getMD5String(oldPwd)))
+        {
+            return Result.error("原密码填写不正确");
+        }
+        if(!rePwd.equals(newPwd))
+            return Result.error("两次天写的密码填写不一样");
+        userService.updatePwd(newPwd);
+        return  Result.success();
+
+    }
+
 }
