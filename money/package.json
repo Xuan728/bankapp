@@ -1,0 +1,20 @@
+{
+  "name": "vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "express": "^4.18.2",
+    "hbuilderx-plugin-amazon-corretto": "0.0.3",
+    "hbuilderx-plugin-hbuilderx-language-services": "^1.1.0-2023102517",
+    "hbuilderx-plugin-uniapp-runextension": "^1.0.1-2023110400.1122",
+    "hbuilderx-plugin-unicloud": "^2.0.66-2023101717"
+  }
+}
