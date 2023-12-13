@@ -2,54 +2,71 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
-			<text class="title">{{title}}</text>
+
+			<text style="font-size: 40rpx;">{{title}}</text>
 		</view>
-		<view>
-		    <input type="text" v-model="username" placeholder="请输入用户名" />
-		    <input type="password" v-model="password" placeholder="请输入密码" />
-		    <button @click="login">登录</button>
-		  </view>
+		<view class="uni-form-item" style="margin-top: 200rpx;">
+			<view class="title">手机号</view>
+			<input class="uni-input" @input="inputmobile" placeholder="请输入手机号" />
+		</view>
+		<view class="uni-form-item">
+			<view class="title">密码</view>
+			<input class="uni-input" @input="inputpassword" password type="text" placeholder="请输入密码" />
+			<view class="uni-button"></view>
+
+			<text class="title">{{title}}</text>
+
+			<text class="title">{{title}}</text>
+>>>>>>> 10a6fe85fd93c517e8b3790412e5ff4666c9e9b7
+		</view>
 	</view>
 </template>
 
 <script>
+
+	import axios from "../../node_modules/axios"
 	export default {
 		data() {
 			return {
-				title: 'Hello',
-				users: '',
-				username: '',
-				password: ''
+				title: '用户您好!',
+				mobile:"",
+				password:"",
+
+
+	export default {
+		data() {
+			return {
+				title: 'Hello'
+
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-		 getUsers() {
-			  uni.request({
-				url: '/user/login',
-				method: 'POST',
-				data: {
-				          username: this.username,
-				          password: this.password
-				},
-				header: {
-				          'content-type': 'application/json' // 设置请求头为JSON格式
-				},
-				success: (res) => {
-				  // 请求成功，处理返回的数据
-				  this.users = res.data;
-				  console.log(res.data);
-				},
-				fail: (err) => {
-				  // 请求失败，处理错误信息
-				  console.error(err);
-				}
-			  });
-			}
+
+			 inputmobile: function(event) {
+			            this.mobile = event.target.value
+			        },
+			inputpassword: function(event) {
+			           this.password = event.target.value
+			       },		
+					
 		}
 	}
+	axios.post("http://localhost:8081/user/login",mobile,password).then((res) => {
+	        console.log(res);
+	})
+
+
+		}
+	}
+
+
+
+		}
+	}
+
 </script>
 
 <style>
@@ -77,5 +94,20 @@
 	.title {
 		font-size: 36rpx;
 		color: #8f8f94;
+
+		width: 20%;
+	}
+		
+	.uni-form-item {
+		display: flex;
+		flex-direction: row;
+		margin:10rpx 10rpx;
+	}
+	
+	.uni-input{
+		margin: 0 0 0 60rpx;
+		background-color: aliceblue;
+		padding: 3rpx 30rpx;
+
 	}
 </style>

@@ -14,6 +14,4 @@ public interface UserService {
 
     //更新头像
     void updateAvatar(String avatarUrl);
-
-    void updatePwd(String newPwd);
 }
