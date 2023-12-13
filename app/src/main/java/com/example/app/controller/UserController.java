@@ -29,7 +29,7 @@ public class UserController {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
+    @CrossOrigin(origins = "http://localhost:8080")  // 允许特定源的跨域请求
     @PostMapping("/register")
     public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password){
 
@@ -45,8 +45,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Result login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password){
-        //查询用户
+    public Result login(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
+
         User loginuser = userService.findByUserName(username);
         if(loginuser == null){
             return Result.error("用户名错误");
@@ -62,8 +62,8 @@ public class UserController {
 
             return Result.success(token);
         }
-
         return Result.error("密码错误");
+
     }
 
     @GetMapping ("/userInfo")
